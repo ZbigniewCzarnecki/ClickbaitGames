@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -17,11 +18,16 @@ public class Player: MonoBehaviour
     {
         _agent = GetComponent<NavMeshAgent>();
         _startPos = transform.position;
-        
+    }
+
+    private void Start()
+    {
         _playerTarget = Instantiate(_target, transform.position, Quaternion.identity).GetComponent<PlayerTarget>();
         _playerTarget.SetupTarget(_forwardSpeed, _turnSpeed);
+        
+        CinemachineCameraFollow.Instance.SetTarget(transform);
     }
-    
+
     void Update()
     {
         MoveToTarget();
