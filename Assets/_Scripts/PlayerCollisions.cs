@@ -8,7 +8,8 @@ public class PlayerCollisions : MonoBehaviour
     {
         if((_collisionLayerMask.value & (1 << other.transform.gameObject.layer)) > 0)
         {
-            GameManager.Instance.GroundSpawner.SpawnGround();
+            Transform parentTransform = other.transform.parent;
+            GameManager.Instance.GroundSpawner.MoveGroundToNewPosition(parentTransform);
         }
     }
 }
