@@ -1,4 +1,4 @@
-using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,16 +7,18 @@ public class Player: MonoBehaviour
     [SerializeField] private Transform _target;
     
     private NavMeshAgent _agent;
-    private Vector3 _startPos;
+    private CapsuleCollider _capsuleCollider;
     
     [SerializeField] private float _forwardSpeed = 10f;
     [SerializeField] private float _turnSpeed = 10f;
     
     private PlayerTarget _playerTarget;
+    private Vector3 _startPos;
     
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _capsuleCollider  = GetComponent<CapsuleCollider>();
         _startPos = transform.position;
     }
 

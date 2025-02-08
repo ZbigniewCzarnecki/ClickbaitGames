@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 2451119989952733443}
   - component: {fileID: 8356858098129680240}
   - component: {fileID: 2997688788324029628}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,7 +55,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 1
   m_ObstacleAvoidanceType: 2
 --- !u!114 &2997688788324029628
 MonoBehaviour:
@@ -83,7 +83,7 @@ GameObject:
   - component: {fileID: 5114996556827898307}
   - component: {fileID: 4410816599029287482}
   - component: {fileID: 7791688125427063807}
-  m_Layer: 3
+  m_Layer: 6
   m_Name: Visual
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -167,10 +167,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8858529397680278519}
-  - component: {fileID: 2214570250966793563}
   - component: {fileID: 6017417666333771818}
-  m_Layer: 3
-  m_Name: TriggerDetection
+  - component: {fileID: 2214570250966793563}
+  - component: {fileID: 3167464957933708041}
+  m_Layer: 6
+  m_Name: PlayerCollisions
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -191,29 +192,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2451119989952733443}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2214570250966793563
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4351107604570387837}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6017417666333771818
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -241,3 +219,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 2
+--- !u!136 &2214570250966793563
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4351107604570387837}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3167464957933708041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4351107604570387837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad32db07d83cc6a44bab072d366d7f7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _collisionLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
