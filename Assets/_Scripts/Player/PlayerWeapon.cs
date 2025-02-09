@@ -14,7 +14,8 @@ public class PlayerWeapon : MonoBehaviour
         if (_timer >= _maxTime)
         {
             _timer = 0f;
-            Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
+            ObjectPoolManager.SpawnObject(_bulletPrefab.gameObject, transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Bullet);
+            //Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
         }
     }
 }
