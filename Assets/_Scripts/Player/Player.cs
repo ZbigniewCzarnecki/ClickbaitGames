@@ -1,54 +1,38 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Player: MonoBehaviour 
+public class Player : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
-    
+    private float _moveSpeed;
     private NavMeshAgent _agent;
-    private CapsuleCollider _capsuleCollider;
-    
-    [SerializeField] private float _forwardSpeed = 10f;
-    [SerializeField] private float _turnSpeed = 10f;
-    
-    private PlayerTarget _playerTarget;
-    private Vector3 _startPos;
+    private Transform _playerTransform;
+    private Transform _targetTransform;
     
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _capsuleCollider  = GetComponent<CapsuleCollider>();
-        _startPos = transform.position;
+        _playerTransform = transform;
     }
 
-    private void Start()
+    private void Update()
     {
-        _playerTarget = Instantiate(_target, transform.position, Quaternion.identity).GetComponent<PlayerTarget>();
-        _playerTarget.SetupTarget(_forwardSpeed, _turnSpeed);
-        
-        CinemachineCameraFollow.Instance.SetTarget(transform);
-    }
+        if (!_targetTransform)
+            return;
 
-    void Update()
-    {
         MoveToTarget();
-        Reset();
     }
 
     private void MoveToTarget()
     {
-        Vector3 direction = (_playerTarget.transform.position - _agent.transform.position);
-        Vector3 movement = direction * (_forwardSpeed * Time.deltaTime);
-        _agent.Move(movement);
-    }
+        Vector3 targetDirection = (_targetTransform.position - _playerTransform.position).normalized;
+        Vector3 moveVector = targetDirection * (_moveSpeed * Time.deltaTime);
 
-    private void Reset()
+        _agent.Move(moveVector);
+    }
+    
+    public void SetupPlayer(float moveSpeed, Transform target)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            transform.position = _startPos;
-            _playerTarget.transform.position = _startPos;
-        }
+        _moveSpeed = moveSpeed;
+        _targetTransform = target;
     }
 }

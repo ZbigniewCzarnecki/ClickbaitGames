@@ -1,14 +1,13 @@
-using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private Player _playerPrefab;
-    
     public static GameManager Instance;
     
-    private GroundSpawner _groundSpawner;
+    private static PlayerManager _playerManager;
+    private static GroundSpawner _groundSpawner;
     
+    public PlayerManager PlayerManager { get { return _playerManager; } }
     public GroundSpawner GroundSpawner { get { return _groundSpawner; } }
     
     public enum GameState
@@ -23,12 +22,14 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         InitializeInstance();
+        
+        _playerManager = GetComponentInChildren<PlayerManager>();
         _groundSpawner = GetComponentInChildren<GroundSpawner>();
     }
 
     private void Start()
     {
-        SpawnPlayer();
+        PlayerManager.SpawnAndSetupPlayer();
     }
 
     private void InitializeInstance()
@@ -59,10 +60,5 @@ public class GameManager : MonoBehaviour
             case GameState.Win:
                 break;
         }
-    }
-    
-    public void SpawnPlayer()
-    {
-        Instantiate(_playerPrefab.transform, _playerPrefab.transform.position, Quaternion.identity);
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -8,10 +7,12 @@ public class ObjectPoolManager : MonoBehaviour
     public static List<PooledObjectInfo> ObjectPools = new List<PooledObjectInfo>();
 
     private GameObject _objectPoolEmptyHolder;
+    private static GameObject _boidEmpty;
     private static GameObject _bulletEmpty;
 
     public enum PoolType
     {
+        Boid,
         Bullet,
         None
     }
@@ -27,6 +28,9 @@ public class ObjectPoolManager : MonoBehaviour
     {
         _objectPoolEmptyHolder = new GameObject("PooledObjects");
 
+        _boidEmpty = new GameObject("Boids");
+        _boidEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
+        
         _bulletEmpty = new GameObject("Bullets");
         _bulletEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
     }
@@ -84,6 +88,8 @@ public class ObjectPoolManager : MonoBehaviour
     {
         switch (poolType)
         {
+            case PoolType.Boid:
+                return _boidEmpty;
             case PoolType.Bullet:
                 return _bulletEmpty;
             case PoolType.None:

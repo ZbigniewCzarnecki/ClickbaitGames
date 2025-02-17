@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Unity.AI.Navigation;
 using UnityEngine;
 
@@ -39,7 +38,6 @@ public class GroundSpawner : MonoBehaviour
     private void SetNewSpawnLocation()
     {
         _newZPos += _groundSizeZ;
-        Debug.Log(_newZPos);
     }
 
     private void SpawnNewTile()
