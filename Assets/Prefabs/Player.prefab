@@ -45,7 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletPrefab: {fileID: 6035588615346130332, guid: 27e809e1f6f2a3c4dab02f51cfd787b8, type: 3}
-  _maxTime: 0.5
+  _bulletFireRateMax: 0.3
+  _bulletDamage: 1
+  _bulletSpeed: 25
+  _bulletFixedDistance: 30
 --- !u!1 &2826473683904079210
 GameObject:
   m_ObjectHideFlags: 0

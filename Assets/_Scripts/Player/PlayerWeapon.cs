@@ -4,18 +4,22 @@ public class PlayerWeapon : MonoBehaviour
 {
     [SerializeField] private Transform _bulletPrefab;
    
-    private float _timer;
-    [SerializeField] private float _maxTime = .2f;
-
+    private float _bulletFireRate;
+    [SerializeField] private float _bulletFireRateMax = .2f;
+    [SerializeField] private int _bulletDamage = 1;
+    [SerializeField] private float _bulletSpeed = 25f;
+    [SerializeField] private float _bulletFixedDistance = 50f;
+    
     void Update()
     {    
-        _timer += Time.deltaTime;
+        _bulletFireRate += Time.deltaTime;
 
-        if (_timer >= _maxTime)
+        if (_bulletFireRate >= _bulletFireRateMax)
         {
-            _timer = 0f;
-            ObjectPoolManager.SpawnObject(_bulletPrefab.gameObject, transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Bullet);
-            //Instantiate(_bulletPrefab, transform.position, Quaternion.identity);
+            _bulletFireRate = 0f;
+            
+            Bullet bullet = ObjectPoolManager.SpawnObject<Bullet>(_bulletPrefab.gameObject, transform.position, Quaternion.identity, ObjectPoolManager.PoolType.Bullet);
+            bullet.SetupBullet(_bulletDamage, _bulletSpeed, _bulletFixedDistance);
         }
     }
 }

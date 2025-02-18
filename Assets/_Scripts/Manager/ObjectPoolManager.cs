@@ -61,8 +61,40 @@ public class ObjectPoolManager : MonoBehaviour
 
         return spawnableObj;
     }
+    
+    public static T SpawnObject<T>(GameObject objectToSpawn, Vector3 spawnPosition, Quaternion spawnRotation, PoolType poolType = PoolType.None) where T : Component
+    {
+        PooledObjectInfo pool = ObjectPools.Find(p => p.LookupString == objectToSpawn.name);
 
-    // ReSharper disable Unity.PerformanceAnalysis
+        if (pool == null)
+        {
+            pool = new PooledObjectInfo() { LookupString = objectToSpawn.name };
+            ObjectPools.Add(pool);
+        }
+
+        GameObject spawnableObj = pool.InactiveObjects.FirstOrDefault();
+
+        if (!spawnableObj)
+        {
+            GameObject parentObject = SetParentObject(poolType);
+            spawnableObj = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
+            if (parentObject)
+            {
+                spawnableObj.transform.SetParent(parentObject.transform);
+            }
+        }
+        else
+        {
+            spawnableObj.transform.position = spawnPosition;
+            spawnableObj.transform.rotation = spawnRotation;
+            pool.InactiveObjects.Remove(spawnableObj);
+            spawnableObj.SetActive(true);
+        }
+
+        return spawnableObj.GetComponent<T>();
+    }
+
+    
     public static void ReturnObjectToPool(GameObject obj)
     {
         // By taking off 7, we are removing the "(Clone)" from the name of the passed-in object

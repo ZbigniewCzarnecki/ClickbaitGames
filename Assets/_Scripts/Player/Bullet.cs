@@ -1,12 +1,11 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private int _damage = 1;
-    [SerializeField] private float _speed = 25f;
-    [SerializeField] private float _fixedDistance = 50f;
+    private int _damage = 1;
+    private float _speed = 25f;
+    private float _fixedDistance = 50f;
 
     private Coroutine _returnToPoolTimerCoroutine;
     
