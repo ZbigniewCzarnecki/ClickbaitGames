@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GroundTrigger : MonoBehaviour, IInteract
+public class GroundTrigger : MonoBehaviour, IInteractable
 {
     Transform _parentTransform;
     
@@ -10,6 +10,6 @@ public class GroundTrigger : MonoBehaviour, IInteract
     }
     public void OnInteract()
     {
-        GameManager.Instance.GroundSpawner.MoveGroundToNewPosition(_parentTransform);
+        GameManager.GroundSpawner.MoveGroundToNewPosition(_parentTransform);
     }
 }

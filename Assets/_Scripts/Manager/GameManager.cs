@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
     private static PlayerManager _playerManager;
     private static GroundSpawner _groundSpawner;
     
-    public PlayerManager PlayerManager { get { return _playerManager; } }
-    public GroundSpawner GroundSpawner { get { return _groundSpawner; } }
+    public static PlayerManager PlayerManager { get { return _playerManager; } }
+    public static GroundSpawner GroundSpawner { get { return _groundSpawner; } }
     
     public enum GameState
     {

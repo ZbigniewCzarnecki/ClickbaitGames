@@ -7,12 +7,10 @@ public class ObjectPoolManager : MonoBehaviour
     public static List<PooledObjectInfo> ObjectPools = new List<PooledObjectInfo>();
 
     private GameObject _objectPoolEmptyHolder;
-    private static GameObject _boidEmpty;
     private static GameObject _bulletEmpty;
 
     public enum PoolType
     {
-        Boid,
         Bullet,
         None
     }
@@ -27,9 +25,6 @@ public class ObjectPoolManager : MonoBehaviour
     private void SetupEmpties()
     {
         _objectPoolEmptyHolder = new GameObject("PooledObjects");
-
-        _boidEmpty = new GameObject("Boids");
-        _boidEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
         
         _bulletEmpty = new GameObject("Bullets");
         _bulletEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
@@ -47,11 +42,11 @@ public class ObjectPoolManager : MonoBehaviour
 
         GameObject spawnableObj = pool.InactiveObjects.FirstOrDefault();
 
-        if (spawnableObj == null)
+        if (!spawnableObj)
         {
             GameObject parentObject = SetParentObject((poolType));
             spawnableObj = Instantiate(objectToSpawn, spawnPosition, spawnRotation);
-            if (parentObject != null)
+            if (parentObject)
             {
                 spawnableObj.transform.SetParent(parentObject.transform);
             }
@@ -67,6 +62,7 @@ public class ObjectPoolManager : MonoBehaviour
         return spawnableObj;
     }
 
+    // ReSharper disable Unity.PerformanceAnalysis
     public static void ReturnObjectToPool(GameObject obj)
     {
         // By taking off 7, we are removing the "(Clone)" from the name of the passed-in object
@@ -88,8 +84,6 @@ public class ObjectPoolManager : MonoBehaviour
     {
         switch (poolType)
         {
-            case PoolType.Boid:
-                return _boidEmpty;
             case PoolType.Bullet:
                 return _bulletEmpty;
             case PoolType.None:

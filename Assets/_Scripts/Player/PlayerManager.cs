@@ -9,7 +9,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float _moveSpeed = 10f;
 
     private PlayerFollowTarget _playerTarget;
+    private Power _power;
     
+    public Power Power => _power;
+
     public void SpawnAndSetupPlayer()
     {
         SpawnPlayerTarget();
@@ -27,6 +30,7 @@ public class PlayerManager : MonoBehaviour
     {
         Player player = Instantiate(_playerPrefab, _playerPrefab.transform.position, Quaternion.identity).GetComponent<Player>();
         player.SetupPlayer(_moveSpeed, _playerTarget.transform);
+        _power = player.GetComponent<Power>();
         
         //Setup Camera Target
         CinemachineCameraFollow.Instance.SetTarget(player.transform);

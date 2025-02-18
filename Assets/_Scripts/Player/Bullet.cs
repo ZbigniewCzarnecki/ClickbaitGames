@@ -15,11 +15,6 @@ public class Bullet : MonoBehaviour
         _returnToPoolTimerCoroutine = StartCoroutine(ReturnToPoolAfterTime());
     }
     
-    private void Start()
-    {
-        //Invoke(nameof(DestroyBulletAfterCertainTime), CalculateDistance());
-    }
-    
     private void Update()
     {
         MoveForward();
@@ -29,18 +24,12 @@ public class Bullet : MonoBehaviour
     {
         transform.position += transform.forward * (_speed * Time.deltaTime);
     }
-
+    
     private float CalculateDistance()
     {
         return _fixedDistance / _speed;
     }
     
-    private void DestroyBulletAfterCertainTime()
-    {
-        //ObjectPoolManager.ReturnObjectToPool(gameObject);
-    }
-
-    // ReSharper disable Unity.PerformanceAnalysis
     private IEnumerator ReturnToPoolAfterTime()
     {
         float elapsedTime = 0f;
@@ -58,5 +47,14 @@ public class Bullet : MonoBehaviour
         _damage = bulletDamage;
         _speed = bulletSpeed;
         _fixedDistance = fixedDistance;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.TryGetComponent(out Power power))
+        {
+            power.DecreasePower(_damage);
+            ObjectPoolManager.ReturnObjectToPool(gameObject);
+        }
     }
 }

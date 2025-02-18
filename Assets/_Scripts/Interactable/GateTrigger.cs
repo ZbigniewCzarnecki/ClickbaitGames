@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GateTrigger : MonoBehaviour, IInteract
+public class GateTrigger : MonoBehaviour, IInteractable
 {
     public void OnInteract()
     {
