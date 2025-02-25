@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -9,9 +8,13 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float _moveSpeed = 10f;
 
     private PlayerFollowTarget _playerTarget;
-    private Power _power;
+    private PlayerWeapon _playerWeapon;
+    private Player _player;
+    private Health _health;
     
-    public Power Power => _power;
+    public Player Player => _player;
+    public PlayerWeapon PlayerWeapon => _playerWeapon;
+    public Health Health => _health;
 
     public void SpawnAndSetupPlayer()
     {
@@ -28,11 +31,13 @@ public class PlayerManager : MonoBehaviour
 
     private void SpawnPlayer()
     {
-        Player player = Instantiate(_playerPrefab, _playerPrefab.transform.position, Quaternion.identity).GetComponent<Player>();
-        player.SetupPlayer(_moveSpeed, _playerTarget.transform);
-        _power = player.GetComponent<Power>();
+        _player = Instantiate(_playerPrefab, _playerPrefab.transform.position, Quaternion.identity).GetComponent<Player>();
+        _player.SetupPlayer(_moveSpeed, _playerTarget.transform);
+        _health = _player.GetComponent<Health>();
+
+        _playerWeapon = _player.GetComponentInChildren<PlayerWeapon>();
         
         //Setup Camera Target
-        CinemachineCameraFollow.Instance.SetTarget(player.transform);
+        CinemachineCameraFollow.Instance.SetTarget(_player.transform);
     }
 }

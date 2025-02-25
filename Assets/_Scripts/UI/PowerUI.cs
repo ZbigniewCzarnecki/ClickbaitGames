@@ -4,31 +4,31 @@ using UnityEngine;
 public class PowerUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _powerText;
-    private Power _power;
+    private Health _health;
     
     private void Awake()
     {
-        _power = GetComponentInParent<Power>();
+        _health = GetComponentInParent<Health>();
     }
 
     private void Start()
     {
-        _power.OnDecreasePowerAction += Power_OnDecreasePowerAction;
+        _health.OnDecreaseHealthAction += HealthOnDecreaseHealthAction;
         UpdateUI();
     }
 
     private void OnDisable()
     {
-        _power.OnDecreasePowerAction -= Power_OnDecreasePowerAction;
+        _health.OnDecreaseHealthAction -= HealthOnDecreaseHealthAction;
     }
 
-    private void Power_OnDecreasePowerAction()
+    private void HealthOnDecreaseHealthAction()
     {
         UpdateUI();
     }
 
     private void UpdateUI()
     {
-        _powerText.text = _power.CurrentPower.ToString();
+        _powerText.text = _health.CurrentHealth.ToString();
     }
 }

@@ -50,9 +50,9 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out Power power))
+        if (other.TryGetComponent(out Health power))
         {
-            power.DecreasePower(_damage);
+            power.DecreaseHealth(_damage);
             ObjectPoolManager.ReturnObjectToPool(gameObject);
         }
     }

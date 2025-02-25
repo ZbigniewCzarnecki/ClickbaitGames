@@ -6,7 +6,7 @@ public class PlayerCollisions : MonoBehaviour
     {
         if (other.TryGetComponent(out IInteractable interact))
         {
-            interact.OnInteract();
+            interact.Interact();
         }
     }
 }

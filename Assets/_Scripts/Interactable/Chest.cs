@@ -2,11 +2,26 @@ using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable
 {
-    [SerializeField] private int _damage = 5;
-    
-    public void OnInteract()
+    private Health _health;
+
+    private void Awake()
     {
-        GameManager.PlayerManager.Power.DecreasePower(_damage);
+        _health = GetComponent<Health>();
+    }
+
+    private void Start()
+    {
+        _health.OnBelowZeroHealthAction += Health_OnOnBelowZeroHealthAction;
+    }
+
+    private void Health_OnOnBelowZeroHealthAction()
+    {
+        Debug.Log("Chest: Health_OnOnBelowZeroHealthAction");
+    }
+
+    public void Interact()
+    {
+        GameManager.PlayerManager.Health.DecreaseHealth(_health.CurrentHealth);
         Destroy(gameObject);
     }
 }

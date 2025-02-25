@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GateTrigger : MonoBehaviour, IInteractable
 {
-    public void OnInteract()
+    public void Interact()
     {
         Debug.Log("Gate Trigger");
     }

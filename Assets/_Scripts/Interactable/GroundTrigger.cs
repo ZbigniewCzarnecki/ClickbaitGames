@@ -8,7 +8,7 @@ public class GroundTrigger : MonoBehaviour, IInteractable
     {
         _parentTransform = transform.parent;
     }
-    public void OnInteract()
+    public void Interact()
     {
         GameManager.GroundSpawner.MoveGroundToNewPosition(_parentTransform);
     }
