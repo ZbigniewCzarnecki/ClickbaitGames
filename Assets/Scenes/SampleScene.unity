@@ -523,7 +523,7 @@ MonoBehaviour:
   m_LayerMask:
     serializedVersion: 2
     m_Bits: 257
-  m_UseGeometry: 0
+  m_UseGeometry: 1
   m_DefaultArea: 0
   m_GenerateLinks: 0
   m_IgnoreNavMeshAgent: 1
@@ -1015,6 +1015,6 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 2115405707}
-  - {fileID: 2480088119002581590}
   - {fileID: 169200917}
   - {fileID: 1273590202}
+  - {fileID: 2480088119002581590}

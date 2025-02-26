@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Chest : MonoBehaviour, IInteractable
@@ -15,8 +16,8 @@ public class Chest : MonoBehaviour, IInteractable
     }
 
     private void Health_OnOnBelowZeroHealthAction()
-    {
-        Debug.Log("Chest: Health_OnOnBelowZeroHealthAction");
+    {      
+        Destroy(gameObject);
     }
 
     public void Interact()

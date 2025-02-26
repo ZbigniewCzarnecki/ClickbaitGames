@@ -33,7 +33,6 @@ public class Health : MonoBehaviour
         {
             _currentHealth = 0;
             OnBelowZeroHealthAction?.Invoke();
-            Destroy(gameObject);
             return;
         }
         

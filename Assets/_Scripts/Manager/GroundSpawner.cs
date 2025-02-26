@@ -14,7 +14,7 @@ public class GroundSpawner : MonoBehaviour
         _navMeshSurface = GetComponent<NavMeshSurface>();
         _groundSizeZ = _groundPrefab.GetComponent<BoxCollider>().size.z;
 
-        InstantiateGround(2);
+        InstantiateGround(3);
     }
 
     public void MoveGroundToNewPosition(Transform ground)
