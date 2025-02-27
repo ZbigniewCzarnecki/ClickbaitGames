@@ -1,8 +1,7 @@
-using System;
 using UnityEngine;
 using DG.Tweening;
 
-public class Hover : MonoBehaviour
+public class HoverDGTween : MonoBehaviour
 {
     [SerializeField] private float _duration = 1f;
 

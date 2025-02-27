@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class Player : MonoBehaviour
 {
-    private float _moveSpeed;
+    private float _playerSpeed;
     private NavMeshAgent _agent;
     private Transform _playerTransform;
     private Transform _targetTransform;
@@ -25,14 +25,14 @@ public class Player : MonoBehaviour
     private void MoveToTarget()
     {
         Vector3 targetDirection = (_targetTransform.position - _playerTransform.position).normalized;
-        Vector3 moveVector = targetDirection * (_moveSpeed * Time.deltaTime);
+        Vector3 moveVector = targetDirection * (_playerSpeed * Time.deltaTime);
 
         _agent.Move(moveVector);
     }
     
-    public void SetupPlayer(float moveSpeed, Transform target)
+    public void SetupPlayer(float playerSpeed, Transform target)
     {
-        _moveSpeed = moveSpeed;
+        _playerSpeed = playerSpeed;
         _targetTransform = target;
     }
 }

@@ -1,11 +1,14 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PlayerManager : MonoBehaviour
 {
     [SerializeField] private GameObject _playerPrefab;
     [SerializeField] private Transform _targetPrefab;
     
-    [SerializeField] private float _moveSpeed = 10f;
+    [SerializeField] private float _playerSpeed = 10f;
+    [SerializeField] private float _targetForwardSpeed = 5f;
+    [SerializeField] private float _targetHorizontalSpeed = 10f;
 
     private PlayerFollowTarget _playerTarget;
     private PlayerWeapon _playerWeapon;
@@ -26,13 +29,13 @@ public class PlayerManager : MonoBehaviour
     {
         _playerTarget = Instantiate(_targetPrefab, transform.position, Quaternion.identity)
             .GetComponent<PlayerFollowTarget>();
-        _playerTarget.Setup(_moveSpeed);
+        _playerTarget.Setup(_targetForwardSpeed, _targetHorizontalSpeed);
     }
 
     private void SpawnPlayer()
     {
         _player = Instantiate(_playerPrefab, _playerPrefab.transform.position, Quaternion.identity).GetComponent<Player>();
-        _player.SetupPlayer(_moveSpeed, _playerTarget.transform);
+        _player.SetupPlayer(_playerSpeed, _playerTarget.transform);
         _health = _player.GetComponent<Health>();
 
         _playerWeapon = _player.GetComponentInChildren<PlayerWeapon>();
