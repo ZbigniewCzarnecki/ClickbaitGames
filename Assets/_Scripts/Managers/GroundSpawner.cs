@@ -1,5 +1,5 @@
-using Unity.AI.Navigation;
 using UnityEngine;
+using Unity.AI.Navigation;
 
 public class GroundSpawner : MonoBehaviour
 {
@@ -14,18 +14,21 @@ public class GroundSpawner : MonoBehaviour
         _navMeshSurface = GetComponent<NavMeshSurface>();
         _groundSizeZ = _groundPrefab.GetComponent<BoxCollider>().size.z;
 
-        InstantiateGround(3);
+        InstantiateGroundForTheFirstTime(3);
     }
 
-    public void MoveGroundToNewPosition(Transform ground)
+    public void MoveGroundToNewPosition(Transform groundTransform)
     {
         SetNewSpawnLocation();
-        Vector3 newGroundPos = new Vector3(ground.position.x, ground.position.y, _newZPos);
-        ground.position = newGroundPos;
+        Vector3 newGroundPos = new Vector3(groundTransform.position.x, groundTransform.position.y, _newZPos);
+        groundTransform.position = newGroundPos;
         BuildNewNavMesh();
+        
+        Ground tmpGround = groundTransform.GetComponent<Ground>();
+        UpdateSpawnPointManager(tmpGround);
     }
 
-    private void InstantiateGround(int howMany)
+    private void InstantiateGroundForTheFirstTime(int howMany)
     {
         for (int i = 0; i < howMany; i++)
         {
@@ -42,13 +45,24 @@ public class GroundSpawner : MonoBehaviour
 
     private void SpawnNewTile()
     {
-        Instantiate(_groundPrefab,
+        Ground tmpGround = Instantiate(_groundPrefab,
             new Vector3(_groundPrefab.position.x, _groundPrefab.position.y, _groundPrefab.position.z + _newZPos),
-            Quaternion.identity);
+            Quaternion.identity).GetComponent<Ground>();
+
+        UpdateSpawnPointManager(tmpGround);
     }
 
     private void BuildNewNavMesh()
     {
         _navMeshSurface.BuildNavMesh();
+    }
+
+    private void UpdateSpawnPointManager(Ground ground)
+    {
+        foreach (Transform spawnPoint in ground.SpawnPointList)
+        {
+            GameManager.ObjectSpawner.SpawnRandomObject(spawnPoint);
+            //GameManager.SpawnPointsManager.UpdateSpawnPoint(spawnPoint);
+        }
     }
 }

@@ -8,9 +8,11 @@ public class ObjectPoolManager : MonoBehaviour
 
     private GameObject _objectPoolEmptyHolder;
     private static GameObject _bulletEmpty;
+    private static GameObject _zombieEmpty;
 
     public enum PoolType
     {
+        Zombie,
         Bullet,
         None
     }
@@ -25,6 +27,9 @@ public class ObjectPoolManager : MonoBehaviour
     private void SetupEmpties()
     {
         _objectPoolEmptyHolder = new GameObject("PooledObjects");
+        
+        _zombieEmpty = new GameObject("Zombies");
+        _zombieEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
         
         _bulletEmpty = new GameObject("Bullets");
         _bulletEmpty.transform.SetParent(_objectPoolEmptyHolder.transform);
@@ -116,6 +121,8 @@ public class ObjectPoolManager : MonoBehaviour
     {
         switch (poolType)
         {
+            case PoolType.Zombie:
+                return _zombieEmpty;
             case PoolType.Bullet:
                 return _bulletEmpty;
             case PoolType.None:
